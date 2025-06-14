@@ -20,3 +20,5 @@ Route::get('/login', function () {
 });
 
 Route::get('/map/tpt', [MapController::class, 'getTPT']);
+
+Route::get('/map/geojson', [MapController::class, 'getGeoJson']);

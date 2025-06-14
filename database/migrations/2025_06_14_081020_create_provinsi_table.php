@@ -12,7 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('provinsi', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('provinsi'); // ⬅️ kolom eksplisit untuk nama provinsi
+            $table->string('type');
+            $table->jsonb('geometry');
+            $table->jsonb('properties');
             $table->timestamps();
         });
     }

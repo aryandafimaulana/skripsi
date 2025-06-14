@@ -68,7 +68,7 @@
         }
         
 
-        fetch('/geo/38_Provinsi.json')
+        fetch('/map/geojson')
             .then(res => res.json())
             .then(geojson => {
                 geoLayer = L.geoJSON(geojson, {
