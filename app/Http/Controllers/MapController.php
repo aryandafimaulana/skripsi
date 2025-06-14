@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\JsonResponse;
 
 class MapController extends Controller
 {
@@ -15,4 +16,13 @@ class MapController extends Controller
 
         return view('maps', compact('provinsi'));
     }
+
+    public function getTPT()
+{
+    $data = DB::table('data_indikator_ketenagakerjaan')
+        ->select('provinsi', 'tpt')
+        ->get();
+
+    return response()->json($data);
+}
 }

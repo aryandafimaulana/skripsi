@@ -18,3 +18,5 @@ Route::get('/data', [DataIndikatorController::class, 'index'])->name('data.index
 Route::get('/login', function () {
     return view('login');
 });
+
+Route::get('/map/tpt', [MapController::class, 'getTPT']);
