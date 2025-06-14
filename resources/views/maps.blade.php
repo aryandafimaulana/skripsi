@@ -96,7 +96,7 @@
             <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
                 <li>Ketik nama provinsi di kolom pencarian.</li>
                 <li>Gunakan filter untuk menampilkan data TPT, IPM, dsb.</li>
-                <li>Klik provinsi untuk melihat detailnya.</li>
+                <li>Klik pada peta bagian provinsi tertentu untuk melihat detailnya.</li>
                 <li>Gunakan tombol Reset yang ada di filter peta untuk mengembalikan peta ke tampilan awal.</li>
             </ul>
             <div class="mt-4 text-right">
