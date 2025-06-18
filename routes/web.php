@@ -15,6 +15,10 @@ Route::get('/maps', [MapController::class, 'index'])->name('maps');
 
 Route::get('/data', [DataIndikatorController::class, 'index'])->name('data.index');
 
+Route::get('/data', [DataIndikatorController::class, 'dataTable']);
+
+Route::get('/data/export-csv', [DataIndikatorController::class, 'exportCsv'])->name('data.export');
+
 Route::get('/login', function () {
     return view('login');
 });
