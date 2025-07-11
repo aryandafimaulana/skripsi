@@ -13,10 +13,10 @@ class DataIndikatorKetenagakerjaan extends Model
 
     protected $fillable = [
         'provinsi',
-        'rls',
         'tpt',
-        'ump',
-        'rasio_lapangan_pekerjaan',
-        'cluster',
+        'lowongan_kerja',
+        'rls',
+        'ipm',
+        'tpak',
     ];
 }

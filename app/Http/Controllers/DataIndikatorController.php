@@ -28,6 +28,8 @@ class DataIndikatorController extends Controller
     {
         $data = DB::table('data_indikator_ketenagakerjaan')->get();
 
+        $totalProvinsi = DB::table('data_indikator_ketenagakerjaan')->count();
+
         $avgTPT = DB::table('data_indikator_ketenagakerjaan')->avg('tpt');
         $avgIPM = DB::table('data_indikator_ketenagakerjaan')->avg('ipm');
         $avgRLS = DB::table('data_indikator_ketenagakerjaan')->avg('rls');
@@ -39,6 +41,7 @@ class DataIndikatorController extends Controller
 
         return view('data', compact(
             'data',
+            'totalProvinsi',
             'avgTPT',
             'avgIPM',
             'avgRLS',
@@ -49,36 +52,69 @@ class DataIndikatorController extends Controller
         ));
     }
 
-    public function exportCsv()
+    public function kelola()
     {
-        $data = DataIndikatorKetenagakerjaan::all();
+        $data = DB::table('data_indikator_ketenagakerjaan')->get();
 
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="data_ketenagakerjaan.csv"',
-        ];
+        $totalProvinsi = DB::table('data_indikator_ketenagakerjaan')->count();
 
-        $callback = function () use ($data) {
-            $handle = fopen('php://output', 'w');
+        $avgTPT = DB::table('data_indikator_ketenagakerjaan')->avg('tpt');
+        $avgIPM = DB::table('data_indikator_ketenagakerjaan')->avg('ipm');
+        $avgRLS = DB::table('data_indikator_ketenagakerjaan')->avg('rls');
+        $avgTPAK = DB::table('data_indikator_ketenagakerjaan')->avg('tpak');
+        $avgLowongan = DB::table('data_indikator_ketenagakerjaan')->avg('lowongan_kerja');
 
-            // Header kolom
-            fputcsv($handle, ['Provinsi', 'TPT', 'Lowongan Kerja', 'RLS', 'IPM', 'TPAK']);
+        $lowest = DB::table('data_indikator_ketenagakerjaan')->orderBy('tpt', 'asc')->first();
+        $highest = DB::table('data_indikator_ketenagakerjaan')->orderBy('tpt', 'desc')->first();
 
-            // Isi data
-            foreach ($data as $item) {
-                fputcsv($handle, [
-                    $item->provinsi,
-                    $item->tpt,
-                    $item->lowongan_kerja,
-                    $item->rls,
-                    $item->ipm,
-                    $item->tpak
-                ]);
-            }
+        return view('kelolaData', compact(
+            'data',
+            'totalProvinsi',
+            'avgTPT',
+            'avgIPM',
+            'avgRLS',
+            'avgTPAK',
+            'avgLowongan',
+            'lowest',
+            'highest'
+        ));
+    }
 
-            fclose($handle);
-        };
+    public function store(Request $request)
+    {
+        DB::table('data_indikator_ketenagakerjaan')->insert([
+            'provinsi' => $request->provinsi,
+            'tpt' => $request->tpt,
+            'ipm' => $request->ipm,
+            'rls' => $request->rls,
+            'tpak' => $request->tpak,
+            'lowongan_kerja' => $request->lowongan_kerja,
+        ]);
 
-        return Response::stream($callback, 200, $headers);
+        return redirect()->back()->with('success', 'Data berhasil ditambahkan');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'provinsi' => 'required|string|max:255',
+            'tpt' => 'required|numeric',
+            'ipm' => 'required|numeric',
+            'rls' => 'required|numeric',
+            'tpak' => 'required|numeric',
+            'lowongan_kerja' => 'required|numeric',
+        ]);
+
+        // Gunakan model langsung (lebih aman dan Laravel-friendly)
+        $data = DataIndikatorKetenagakerjaan::findOrFail($id);
+        $data->update($validated);
+
+        return redirect()->back()->with('success', 'Data berhasil diperbarui.');
+    }
+
+    public function destroy($id)
+    {
+        DB::table('data_indikator_ketenagakerjaan')->where('id', $id)->delete();
+        return redirect()->back()->with('success', 'Data berhasil dihapus');
     }
 }

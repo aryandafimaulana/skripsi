@@ -23,22 +23,33 @@
     </div>
 
     <!-- Ringkasan Data -->
-    <section class="py-6">
-        <div class="max-w-6xl mx-auto px-4 grid sm:grid-cols-3 gap-4 text-center mb-6">
-            <div class="bg-blue-100 p-4 rounded-lg shadow">
-                <p class="text-sm text-gray-500">Rata-rata Nasional</p>
-                <h3 class="text-2xl font-bold text-blue-700">{{ number_format($avgTPT, 1) }}%</h3>
-                <p class="text-xs text-gray-600 mt-1">Tingkat Pengangguran Terbuka</p>
+    <section class=" py-8 mx-12">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Total Provinsi -->
+            <div class="bg-white p-6 rounded-lg shadow text-center border-l-4 border-blue-500">
+                <p class="text-sm text-gray-500">Total Provinsi</p>
+                <h3 class="text-3xl font-bold text-blue-600">{{ $totalProvinsi }}</h3>
             </div>
-            <div class="bg-green-100 p-4 rounded-lg shadow">
-                <p class="text-sm text-gray-500">Provinsi Terendah</p>
-                <h3 class="text-2xl font-bold text-green-700">{{ number_format($lowest->tpt, 1) }}%</h3>
-                <p class="text-xs text-gray-600 mt-1">{{ $lowest->provinsi }}</p>
+
+            <!-- Rata-rata TPT -->
+            <div class="bg-white p-6 rounded-lg shadow text-center border-l-4 border-yellow-500">
+                <p class="text-sm text-gray-500">Rata-rata TPT Nasional</p>
+                <h3 class="text-3xl font-bold text-yellow-600">{{ number_format($avgTPT, 2) }}%</h3>
             </div>
-            <div class="bg-red-100 p-4 rounded-lg shadow">
-                <p class="text-sm text-gray-500">Provinsi Tertinggi</p>
-                <h3 class="text-2xl font-bold text-red-700">{{ number_format($highest->tpt, 1) }}%</h3>
-                <p class="text-xs text-gray-600 mt-1">{{ $highest->provinsi }}</p>
+
+            <!-- TPT Tertinggi -->
+            <div class="bg-white p-6 rounded-lg shadow text-center border-l-4 border-red-500">
+                <p class="text-sm text-gray-500">TPT Tertinggi</p>
+                <h3 class="text-xl font-bold text-red-600">{{ $highest->provinsi }}</h3>
+                <p class="text-2xl">{{ number_format($highest->tpt, 2) }}%</p>
+            </div>
+
+            <!-- TPT Terendah -->
+            <div class="bg-white p-6 rounded-lg shadow text-center border-l-4 border-green-500">
+                <p class="text-sm text-gray-500">TPT Terendah</p>
+                <h3 class="text-xl font-bold text-green-600">{{ $lowest->provinsi }}</h3>
+                <p class="text-2xl">{{ number_format($lowest->tpt, 2) }}%</p>
             </div>
         </div>
     </section>
@@ -65,7 +76,7 @@
             <!-- Filter -->
             <div class="flex flex-wrap items-center gap-2">
                 <select id="filterIndikator"
-                    class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 w-full lg:w-auto">
                     <option value="">Indikator</option>
                     <option value="tpt">TPT</option>
                     <option value="ipm">IPM</option>
@@ -75,7 +86,7 @@
                 </select>
 
                 <select id="filterKondisi"
-                    class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+                    class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 w-full lg:w-auto">
                     <option value="">Kondisi</option>
                     <option value="atas">Di Atas Rata-rata</option>
                     <option value="bawah">Di Bawah Rata-rata</option>
@@ -85,12 +96,11 @@
             <!-- Actions -->
             <div class="flex flex-wrap gap-2">
                 <button id="resetFilter"
-                    class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm rounded-md shadow whitespace-nowrap">
+                    class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm rounded-md shadow whitespace-nowrap w-full lg:w-auto">
                     🔄 Reset Filter
                 </button>
-                <a href="{{ route('data.export') }}">
-                    <button
-                        class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md shadow whitespace-nowrap">
+                <a href="{{ route('export.excel') }}" class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-center text-sm rounded-md shadow whitespace-nowrap w-full lg:w-auto">
+                    <button>
                         📥 Download Data
                     </button>
                 </a>
