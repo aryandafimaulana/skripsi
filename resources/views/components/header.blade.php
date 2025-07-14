@@ -50,6 +50,10 @@
                         <a href="/data"
                             class="block py-2 pr-4 pl-3 {{ request()->is('data') ? 'text-white' : 'text-gray-700' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Data</a>
                     </li>
+                    <li>
+                        <a href="/hasil-analisis"
+                            class="block py-2 pr-4 pl-3 {{ request()->is('hasil-analisis') ? 'text-white' : 'text-gray-700' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Hasil Analisis</a>
+                    </li>
                 </ul>
             </div>
         </div>

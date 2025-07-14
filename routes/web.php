@@ -23,6 +23,10 @@ Route::get('/data', [DataIndikatorController::class, 'dataTable']);
 Route::get('/export-excel', [\App\Http\Controllers\ExportController::class, 'exportExcel'])->name('export.excel');
 Route::post('/data/import', [DataUploadController::class, 'import'])->name('data.import');
 
+Route::get('/hasil-analisis', function () {
+    return view('hasilAnalisis');
+});
+
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
