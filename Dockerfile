@@ -1,5 +1,9 @@
 FROM unit:1.34.1-php8.3
 
+# Install Node.js
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt install -y nodejs
+
 RUN apt update && apt install -y \
     curl unzip git libicu-dev libzip-dev libpng-dev libjpeg-dev libfreetype6-dev libssl-dev libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
@@ -23,6 +27,9 @@ RUN mkdir -p /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chown -R unit:unit /var/www/html/storage bootstrap/cache && chmod -R 775 /var/www/html/storage
 
 COPY . .
+
+# Install Node.js dependencies and build assets
+RUN npm install && npm run build
 
 RUN chown -R unit:unit storage bootstrap/cache && chmod -R 775 storage bootstrap/cache
 
