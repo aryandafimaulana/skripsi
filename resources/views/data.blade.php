@@ -8,6 +8,7 @@
     <title>Data Indikator Ketenagakerjaan Per Provinsi 2024</title>
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     @vite('resources/js/filterData.js')
 </head>
 

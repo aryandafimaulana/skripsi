@@ -46,7 +46,7 @@
         </div>
     </main>
 
-    <section class="max-w-7xl mx-auto px-6">
+    <section class="max-w-7xl mx-auto px-6 mb-12">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Ringkasan Statistik Utama</h2>
 
         <div class="bg-white p-6 rounded-lg shadow border-l-4 border-blue-500">

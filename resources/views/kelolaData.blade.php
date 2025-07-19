@@ -3,40 +3,38 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kelola Data Indikator</title>
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     @vite('resources/js/filterData.js')
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </head>
 
 <body class="bg-gray-100">
     <x-header />
 
-    <div class="max-w-7xl mx-auto px-6 py-8">
-
-        <!-- Tombol Tambah -->
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 mb-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header dan Tombol -->
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
             <h1 class="text-2xl font-bold text-gray-800">Kelola Data Indikator Ketenagakerjaan</h1>
-            <button id="btnAdd" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm">
+            <button id="btnAdd" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700 text-sm w-full md:w-auto">
                 + Tambah Data
             </button>
         </div>
 
-        <!-- Notifikasi sukses -->
         @if (session('success'))
         <div class="bg-green-100 text-green-800 px-4 py-3 rounded mb-4">
             {{ session('success') }}
         </div>
         @endif
 
-
-        <section class="overflow-x-auto bg-white rounded shadow px-4 py-4 mb-4">
+        <!-- Section Upload -->
+        <section class="overflow-x-auto bg-white rounded shadow px-4 py-6 mb-4">
             <h2 class="text-xl font-semibold text-gray-800 mb-4">Unggah Data Excel</h2>
 
             <form action="{{ route('data.import') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
-
-                <!-- Input File -->
                 <div>
                     <label for="file" class="block mb-2 text-sm font-medium text-gray-700">Pilih File Excel (.xlsx / .xls)</label>
                     <input type="file" name="file" id="file" accept=".xlsx,.xls"
@@ -45,7 +43,6 @@
                     <p class="text-xs text-gray-500 mt-1">Pastikan ukuran file di bawah 5MB.</p>
                 </div>
 
-                <!-- Tips Box -->
                 <div class="bg-gray-50 border-l-4 border-blue-400 p-4 rounded">
                     <h4 class="font-medium text-sm text-blue-700 mb-1">Catatan Upload:</h4>
                     <ul class="text-xs text-gray-700 list-disc list-inside space-y-1">
@@ -56,9 +53,8 @@
                     </ul>
                 </div>
 
-                <!-- Contoh Ringkas -->
                 <div class="border border-gray-200 rounded-lg overflow-x-auto">
-                    <h1 class=" px-2 py-2 ">Contoh Format :</h1>
+                    <h1 class="px-2 py-2">Contoh Format :</h1>
                     <table class="min-w-full text-xs text-gray-600 table-auto">
                         <thead class="bg-gray-100 text-gray-700 text-center">
                             <tr>
@@ -91,7 +87,6 @@
                     </table>
                 </div>
 
-                <!-- Submit -->
                 <div class="text-right">
                     <button type="submit"
                         class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 px-6 rounded-lg transition">
@@ -101,13 +96,10 @@
             </form>
         </section>
 
-
-        <!-- Filter Container -->
-        <div class="bg-white rounded-md px-6 py-4 shadow mb-2 border border-gray-200">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
-
-                <!-- Search -->
-                <div class="w-full md:flex-1">
+        <!-- Filter Bar -->
+        <div class="bg-white rounded-md px-4 py-4 shadow mb-4 border border-gray-200">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div class="col-span-1">
                     <label for="searchInput" class="sr-only">Cari Provinsi</label>
                     <div class="relative">
                         <input id="searchInput" type="text" placeholder="Cari provinsi..."
@@ -121,54 +113,39 @@
                     </div>
                 </div>
 
-                <!-- Filter -->
-                <div class="flex flex-wrap items-center gap-2">
-                    <select id="filterIndikator"
-                        class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 w-full lg:w-auto">
-                        <option value="">Indikator</option>
-                        <option value="tpt">TPT</option>
-                        <option value="ipm">IPM</option>
-                        <option value="rls">RLS</option>
-                        <option value="tpak">TPAK</option>
-                        <option value="lowongan_kerja">Lowongan Kerja</option>
-                    </select>
+                <select id="filterIndikator"
+                    class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 w-full">
+                    <option value="">Indikator</option>
+                    <option value="tpt">TPT</option>
+                    <option value="ipm">IPM</option>
+                    <option value="rls">RLS</option>
+                    <option value="tpak">TPAK</option>
+                    <option value="lowongan_kerja">Lowongan Kerja</option>
+                </select>
 
-                    <select id="filterKondisi"
-                        class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 w-full lg:w-auto">
-                        <option value="">Kondisi</option>
-                        <option value="atas">Di Atas Rata-rata</option>
-                        <option value="bawah">Di Bawah Rata-rata</option>
-                    </select>
-                </div>
+                <select id="filterKondisi"
+                    class="py-2 px-3 text-sm border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 w-full">
+                    <option value="">Kondisi</option>
+                    <option value="atas">Di Atas Rata-rata</option>
+                    <option value="bawah">Di Bawah Rata-rata</option>
+                </select>
 
-                <!-- Actions -->
                 <div class="flex flex-wrap gap-2">
                     <button id="resetFilter"
-                        class="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm rounded-md shadow whitespace-nowrap w-full lg:w-auto">
+                        class="w-full md:w-auto py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-700 text-sm rounded-md shadow whitespace-nowrap">
                         🔄 Reset Filter
                     </button>
-                    <a href="{{ route('export.excel') }}" class="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-center text-sm rounded-md shadow whitespace-nowrap w-full lg:w-auto">
-                        <button>
-                            📥 Download Data
-                        </button>
+                    <a href="{{ route('export.excel') }}"
+                        class="w-full md:w-auto block text-center py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white text-sm rounded-md shadow">
+                        📅 Download Data
                     </a>
                 </div>
             </div>
         </div>
 
-        <!-- Filter Status -->
-        <div id="filterStatus"
-            class="text-sm text-gray-700 mb-4 hidden bg-white rounded-md px-4 py-2 border border-gray-200 shadow">
-            <p class="mb-1 font-semibold text-gray-800">Filter aktif:</p>
-            <div class="flex flex-wrap gap-2">
-                <span id="searchStatus" class="inline-block bg-gray-100 text-gray-800 px-3 py-1 rounded"></span>
-                <span id="filterIndikatorStatus" class="inline-block bg-gray-100 text-gray-800 px-3 py-1 rounded"></span>
-            </div>
-        </div>
-
-        <!-- Tabel -->
+        <!-- Table -->
         <div class="overflow-x-auto bg-white rounded shadow">
-            <table class="w-full text-sm text-left text-gray-600">
+            <table class="min-w-full text-sm text-left text-gray-600">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                     <tr>
                         <th class="px-6 py-3">Provinsi</th>
@@ -222,89 +199,92 @@
             </table>
         </div>
 
-        <!-- Modal -->
-        <div id="dataModal" class="fixed inset-0 hidden bg-black bg-opacity-50 flex items-center justify-center z-50">
-            <div class="bg-white w-full max-w-lg rounded-lg p-6">
-                <h2 id="modalTitle" class="text-xl font-semibold mb-4">Tambah Data</h2>
-                <form id="dataForm" method="POST">
-                    @csrf
-                    <input type="hidden" name="_method" id="methodField" value="POST">
-                    <input type="hidden" name="id" id="dataId">
+    </div>
 
-                    <div class="grid grid-cols-2 gap-4">
-                        <input name="provinsi" id="provinsi" placeholder="Provinsi" class="border rounded px-3 py-2" required>
-                        <input name="tpt" id="tpt" placeholder="TPT" type="number" step="0.01" class="border rounded px-3 py-2" required>
-                        <input name="ipm" id="ipm" placeholder="IPM" type="number" step="0.01" class="border rounded px-3 py-2" required>
-                        <input name="rls" id="rls" placeholder="RLS" type="number" step="0.01" class="border rounded px-3 py-2" required>
-                        <input name="tpak" id="tpak" placeholder="TPAK" type="number" step="0.01" class="border rounded px-3 py-2" required>
-                        <input name="lowongan_kerja" id="lowongan_kerja" placeholder="Lowongan Kerja" type="number" class="border rounded px-3 py-2" required>
-                    </div>
+    <!-- Modal -->
+    <div id="dataModal" class="fixed inset-0 hidden bg-gray-900/70 flex items-center justify-center z-50">
+        <div class="bg-white w-full max-w-lg rounded-lg p-6">
+            <h2 id="modalTitle" class="text-xl font-semibold mb-4">Tambah Data</h2>
+            <form id="dataForm" method="POST">
+                @csrf
+                <input type="hidden" name="_method" id="methodField" value="POST">
+                <input type="hidden" name="id" id="dataId">
 
-                    <div class="flex justify-end mt-6 gap-2">
-                        <button type="button" id="cancelBtn" class="px-4 py-2 border rounded text-gray-700">Batal</button>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
-                    </div>
-                </form>
-            </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <input name="provinsi" id="provinsi" placeholder="Provinsi" class="border rounded px-3 py-2" required>
+                    <input name="tpt" id="tpt" placeholder="TPT" type="number" step="0.01" class="border rounded px-3 py-2" required>
+                    <input name="ipm" id="ipm" placeholder="IPM" type="number" step="0.01" class="border rounded px-3 py-2" required>
+                    <input name="rls" id="rls" placeholder="RLS" type="number" step="0.01" class="border rounded px-3 py-2" required>
+                    <input name="tpak" id="tpak" placeholder="TPAK" type="number" step="0.01" class="border rounded px-3 py-2" required>
+                    <input name="lowongan_kerja" id="lowongan_kerja" placeholder="Lowongan Kerja" type="number" class="border rounded px-3 py-2" required>
+                </div>
+
+                <div class="flex justify-end mt-6 gap-2">
+                    <button type="button" id="cancelBtn" class="px-4 py-2 border rounded text-gray-700">Batal</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded">Simpan</button>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <script>
-            const modal = document.getElementById('dataModal');
-            const form = document.getElementById('dataForm');
-            const btnAdd = document.getElementById('btnAdd');
-            const cancelBtn = document.getElementById('cancelBtn');
-            const methodField = document.getElementById('methodField');
-            const modalTitle = document.getElementById('modalTitle');
 
-            btnAdd.addEventListener('click', () => {
-                form.action = "{{ route('data.store') }}";
-                methodField.value = 'POST';
-                modalTitle.textContent = 'Tambah Data';
-                form.reset();
+    <script>
+        const modal = document.getElementById('dataModal');
+        const form = document.getElementById('dataForm');
+        const btnAdd = document.getElementById('btnAdd');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const methodField = document.getElementById('methodField');
+        const modalTitle = document.getElementById('modalTitle');
+
+        btnAdd.addEventListener('click', () => {
+            form.action = "{{ route('data.store') }}";
+            methodField.value = 'POST';
+            modalTitle.textContent = 'Tambah Data';
+            form.reset();
+            modal.classList.remove('hidden');
+        });
+
+        cancelBtn.addEventListener('click', () => {
+            modal.classList.add('hidden');
+        });
+
+        document.querySelectorAll('.btnEdit').forEach(button => {
+            button.addEventListener('click', () => {
+                const id = button.dataset.id;
+                const provinsi = button.dataset.provinsi;
+                const tpt = button.dataset.tpt;
+                const ipm = button.dataset.ipm;
+                const rls = button.dataset.rls;
+                const tpak = button.dataset.tpak;
+                const lowongan = button.dataset.lowongan;
+
+                form.action = "{{ url('/kelolaData') }}/" + id;
+                methodField.value = 'PUT';
+                modalTitle.textContent = 'Edit Data';
+
+                document.getElementById('dataId').value = id;
+                document.getElementById('provinsi').value = provinsi;
+                document.getElementById('tpt').value = tpt;
+                document.getElementById('ipm').value = ipm;
+                document.getElementById('rls').value = rls;
+                document.getElementById('tpak').value = tpak;
+                document.getElementById('lowongan_kerja').value = lowongan;
+
                 modal.classList.remove('hidden');
             });
+        });
+    </script>
 
-            cancelBtn.addEventListener('click', () => {
-                modal.classList.add('hidden');
-            });
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 
-            document.querySelectorAll('.btnEdit').forEach(button => {
-                button.addEventListener('click', () => {
-                    const id = button.dataset.id;
-                    const provinsi = button.dataset.provinsi;
-                    const tpt = button.dataset.tpt;
-                    const ipm = button.dataset.ipm;
-                    const rls = button.dataset.rls;
-                    const tpak = button.dataset.tpak;
-                    const lowongan = button.dataset.lowongan;
-
-                    form.action = "{{ url('/kelolaData') }}/" + id;
-                    methodField.value = 'PUT';
-                    modalTitle.textContent = 'Edit Data';
-
-                    document.getElementById('dataId').value = id;
-                    document.getElementById('provinsi').value = provinsi;
-                    document.getElementById('tpt').value = tpt;
-                    document.getElementById('ipm').value = ipm;
-                    document.getElementById('rls').value = rls;
-                    document.getElementById('tpak').value = tpak;
-                    document.getElementById('lowongan_kerja').value = lowongan;
-
-                    modal.classList.remove('hidden');
-                });
-            });
-        </script>
-
-        <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-
-        <script>
-            window.dataAverages = {};
-            window.dataAverages.tpt = <?= json_encode($avgTPT ?? 0) ?>;
-            window.dataAverages.ipm = <?= json_encode($avgIPM ?? 0) ?>;
-            window.dataAverages.rls = <?= json_encode($avgRLS ?? 0) ?>;
-            window.dataAverages.tpak = <?= json_encode($avgTPAK ?? 0) ?>;
-            window.dataAverages.lowongan_kerja = <?= json_encode($avgLowongan ?? 0) ?>;
-        </script>
+    <script>
+        window.dataAverages = {};
+        window.dataAverages.tpt = <?= json_encode($avgTPT ?? 0) ?>;
+        window.dataAverages.ipm = <?= json_encode($avgIPM ?? 0) ?>;
+        window.dataAverages.rls = <?= json_encode($avgRLS ?? 0) ?>;
+        window.dataAverages.tpak = <?= json_encode($avgTPAK ?? 0) ?>;
+        window.dataAverages.lowongan_kerja = <?= json_encode($avgLowongan ?? 0) ?>;
+    </script>
 </body>
 
 </html>

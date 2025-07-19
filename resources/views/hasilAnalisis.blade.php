@@ -7,6 +7,7 @@
     <title>Hasil Analisis Regresi</title>
     @vite('resources/css/app.css')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 </head>
 
 <body class="bg-gray-100">

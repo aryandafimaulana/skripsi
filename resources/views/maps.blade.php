@@ -8,6 +8,7 @@
     @vite('resources/css/app.css')
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
     <style>
         html,
         body {
@@ -147,9 +148,6 @@
             }
             return provinceColors[provKey];
         }
-
-
-
 
         fetch('/map/geojson')
             .then(res => res.json())

@@ -12,7 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/homepage', [DataIndikatorController::class, 'dataCard'])->name('data.dataCard');
+Route::get('/', [DataIndikatorController::class, 'dataCard'])->name('home');
 
 Route::get('/maps', [MapController::class, 'index'])->name('maps');
 
