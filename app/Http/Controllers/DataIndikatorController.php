@@ -105,7 +105,6 @@ class DataIndikatorController extends Controller
             'lowongan_kerja' => 'required|numeric',
         ]);
 
-        // Gunakan model langsung (lebih aman dan Laravel-friendly)
         $data = DataIndikatorKetenagakerjaan::findOrFail($id);
         $data->update($validated);
 
