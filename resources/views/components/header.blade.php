@@ -13,13 +13,13 @@
                 <form action="{{ route('logout') }}" method="POST" class="inline">
                     @csrf
                     <button type="submit"
-                        class="text-gray-700 hover:bg-gray-700 hover:text-white font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
+                        class="text-white bg-red-600 hover:bg-red-700 hover:text-white font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 focus:outline-none">
                         Logout
                     </button>
                 </form>
                 @else
                 <a href="/login"
-                    class="text-gray-700 hover:bg-gray-700 hover:text-white font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">
+                    class="text-green-600 hover:bg-gray-700 hover:text-green-600 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none">
                     Log in
                 </a>
                 @endauth
@@ -39,20 +39,20 @@
                 <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                     <li>
                         <a href="/"
-                            class="block py-2 pr-4 pl-3 {{ request()-> routeIs('home') ? 'text-white' : 'text-gray-700' }} hover:text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 "
+                            class="block py-2 pr-4 pl-3 {{ request()-> routeIs('home') ? 'text-white' : 'text-gray-400' }} hover:text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 "
                             aria-current="page">Home</a>
                     </li>
                     <li>
                         <a href="/maps"
-                            class="block py-2 pr-4 pl-3 {{ request()->is('maps') ? 'text-white' : 'text-gray-700' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Peta</a>
+                            class="block py-2 pr-4 pl-3 {{ request()->is('maps') ? 'text-white' : 'text-gray-400' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Peta</a>
                     </li>
                     <li>
                         <a href="/data"
-                            class="block py-2 pr-4 pl-3 {{ request()->is('data') ? 'text-white' : 'text-gray-700' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Data</a>
+                            class="block py-2 pr-4 pl-3 {{ request()->is('data') ? 'text-white' : 'text-gray-400' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Data</a>
                     </li>
                     <li>
                         <a href="/hasil-analisis"
-                            class="block py-2 pr-4 pl-3 {{ request()->is('hasil-analisis') ? 'text-white' : 'text-gray-700' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Hasil Analisis</a>
+                            class="block py-2 pr-4 pl-3 {{ request()->is('hasil-analisis') ? 'text-white' : 'text-gray-400' }} border-b border-gray-100 hover:bg-gray-50 hover:text-white lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0">Hasil Analisis</a>
                     </li>
                 </ul>
             </div>

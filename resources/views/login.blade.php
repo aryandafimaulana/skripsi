@@ -64,4 +64,24 @@
     </section>
 </body>
 
+<!-- Loading Overlay (Blur Effect) -->
+<div id="loadingOverlay" class="hidden fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm bg-white/30">
+    <div class="flex flex-col items-center bg-white dark:bg-gray-800 px-6 py-4 rounded-2xl shadow-lg">
+        <div class="w-10 h-10 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+        <p class="mt-3 text-sm text-gray-700 dark:text-gray-200">Logging in...</p>
+    </div>
+</div>
+
+<script>
+    const form = document.querySelector("form");
+    const loading = document.getElementById("loadingOverlay");
+    const btn = document.querySelector("button[type='submit']");
+
+    form.addEventListener("submit", function () {
+        loading.classList.remove("hidden");
+        btn.disabled = true;
+        btn.innerText = "Processing...";
+    });
+</script>
+
 </html>
